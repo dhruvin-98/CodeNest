@@ -1,19 +1,69 @@
-import React from 'react'
+import React , { useState } from 'react'
+import { v4 as uuidV4} from 'uuid';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+
+  const [roomId, setRoomId] = useState('');
+  const [username, setUsername] = useState('');
+  const navigate = useNavigate();
+
+  const CreateNewRoom = (e) => {
+    e.preventDefault();
+    const id = uuidV4();
+    setRoomId(id);
+    toast.success('Created a new room');
+
+  }
+
+  const joinRoom = () => {
+    if(!roomId || !username){
+      toast.error('ROOM ID & username is required');
+      return;
+    }
+    // Redirect to editor page
+    navigate(`/editor/${roomId}`, {
+      state: {
+        username,
+      }
+    });
+  }
+
+  const handleInputEnter = (e) => {
+    if(e.code === 'Enter'){
+      joinRoom();
+    }
+  }
+
   return (
     <div>
       <div className='homePgeWrapper' >
         <div className='formWrapper'>
-          <img src="/CodeNest_img.png" alt="CodeNest_logo" className='homePageLogo' />
+          <img src="/logo_codenest.png" alt="CodeNest_logo" className='homePageLogo' />
           <h4 className='mainLabel'>Paste invitation ROOM ID</h4>
           <div className='inputGroup'>
-            <input type="text" className='inputBox' placeholder='ROOM ID' />
-            <input type="text" className='inputBox' placeholder='USERNAME' />
-            <button className='btn joinBtn'>Join</button>
+
+            <input type="text"
+             className='inputBox'
+              placeholder='ROOM ID' 
+              onChange={(e)=>{setRoomId(e.target.value)}}
+              value={roomId} 
+              onKeyUp={handleInputEnter}
+            />
+
+            <input type="text" 
+            className='inputBox' 
+            placeholder='USERNAME' 
+            onChange={(e)=>{setUsername(e.target.value)}}
+            value={username}
+            onKeyUp={handleInputEnter}
+            />
+
+            <button className='btn joinBtn' onClick={joinRoom}>Join</button>
 
             <span>If you don't have an invite then create &nbsp;
-              <a href="" className='createNewBtn'>New Room</a>
+              <a onClick={CreateNewRoom} href="" className='createNewBtn'>New Room</a>
             </span>
           </div>
         </div>
