@@ -38,7 +38,7 @@ const Home = () => {
 
   return (
     <div>
-      <div className='homePgeWrapper' >
+      <div className='homePageWrapper' >
         <div className='formWrapper'>
           <img src="/logo_codenest.png" alt="CodeNest_logo" className='homePageLogo' />
           <h4 className='mainLabel'>Paste invitation ROOM ID</h4>
