@@ -13,11 +13,12 @@ html,body,#root {
 }
 
 .formWrapper {
-    background: #282a36;
+    background: #161823ff;
     padding: 20px;
     border-radius: 10px;
     width: 400px;
     max-width: 90%;
+
 }
 
 footer {
@@ -102,7 +103,7 @@ footer a:hover {
 }
 
 .aside {
-    background: #1c1e29;
+    background: #161823ff;
     padding: 16px;
     color: #fff;
     display: flex;
