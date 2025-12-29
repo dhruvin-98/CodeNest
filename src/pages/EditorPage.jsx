@@ -112,7 +112,7 @@ const EditorPage = () => {
           className="btn copyBtn"
           onClick={() => {
             navigator.clipboard.writeText(roomId);
-            toast.success('Room ID copied');
+            toast.success('Room ID copied to clipboard');
           }}
         >
           Copy ROOM ID
@@ -129,7 +129,7 @@ const EditorPage = () => {
       </div>
 
       <div className="editorWrap">
-        <Editor socketRef={socketRef}  roomId={roomId} />
+        <Editor socketRef={socketRef}  roomId={roomId} onCodeChange={(code) => { codeRef.current = code; }} />
       </div>
     </div>
   );
