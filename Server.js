@@ -2,16 +2,33 @@ import express from "express";
 import http from "http";
 import { Server } from "socket.io";
 import ACTIONS from "./actions.js";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const app = express();
 const server = http.createServer(app);
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.use(express.static(path.join(__dirname, "dist")));
+
+// app.use(express.static('dist'));
+// app.use((req, res, next) => {
+//   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+// });
+
+
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: "http://localhost:5000",
     methods: ["GET", "POST"],
   },
 });
+
+
+
+
 
 // ✅ GLOBAL MAP
 const userSocketMap = {};
@@ -65,6 +82,12 @@ io.on("connection", (socket) => {
     delete userSocketMap[socket.id];
   });
 });
+
+
+app.use((req, res) => {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
+});
+
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
