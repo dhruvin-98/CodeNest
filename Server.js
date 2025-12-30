@@ -5,6 +5,7 @@ import ACTIONS from "./actions.js";
 import path from "path";
 import { fileURLToPath } from "url";
 
+
 const app = express();
 const server = http.createServer(app);
 
@@ -21,7 +22,7 @@ app.use(express.static(path.join(__dirname, "dist")));
 
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5000",
+    origin: "*",
     methods: ["GET", "POST"],
   },
 });
